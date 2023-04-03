@@ -9,6 +9,8 @@ namespace PetrolEngine {
     Client::Client(const char* ip, int port){
         this->ip = ip;
         this->port = port;
+
+        init();
     }
 
     int Client::init(){
