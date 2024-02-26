@@ -2,6 +2,7 @@
 #include "enet/enet.h"
 #include <cstring>
 #include <iostream>
+#include <PCH.h>
 
 static void sendString(ENetPeer* peer, const char* str) {
 	ENetPacket* packet = enet_packet_create(str, strlen(str) + 1, ENET_PACKET_FLAG_RELIABLE);
@@ -33,9 +34,10 @@ namespace PetrolEngine {
     void Server::run(){
         ENetEvent event;
 
+        LOG("server ON", 3);
         bool done = false;
         while(!done){
-            while(enet_host_service(server, &event, 1) > 0){
+            while(enet_host_service(server, &event, 1000) > 0){
                 switch (event.type) {
                     case ENET_EVENT_TYPE_CONNECT: {
                         Peer peer(event.peer);
@@ -69,6 +71,7 @@ namespace PetrolEngine {
                 }
             }
         }
+        LOG("server OFF", 3);
     }
 
     Server::~Server(){

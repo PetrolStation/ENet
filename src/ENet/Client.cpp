@@ -4,28 +4,36 @@
 #include <cstring>
 #include <chrono>
 #include <thread>
+#include <PCH.h>
 
 namespace PetrolEngine {
     Client::Client(const char* ip, int port){
         this->ip = ip;
         this->port = port;
 
-        init();
+        //init();
     }
 
     int Client::init(){
         if(enet_initialize() != 0) return 1;
 
-        client = enet_host_create(nullptr, 1, 1, 0, 0);
+        client = enet_host_create(nullptr, 1, 2, 0, 0);
         
-        if(client == nullptr) return 2;
+        if(client == nullptr){
+            LOG("could not create client!", 3);
+            return 2;
+        }
 
         enet_address_set_host(&address, ip);
         address.port = port;
 
-        server = enet_host_connect(client, &address, 1, 0);
+        LOG("Client connecting to server...", 3);
+        server = enet_host_connect(client, &address, 2, 0);
 
-        if(server == nullptr) return 3;
+        if(server == nullptr){
+            LOG("could not connect to server!", 3);
+            return 3;
+        }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
