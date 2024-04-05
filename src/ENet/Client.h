@@ -23,5 +23,6 @@ namespace PetrolEngine{
         ENetAddress address;
         ENetHost* client;
         ENetPeer* server;
+        bool active = true;
     };
 }
