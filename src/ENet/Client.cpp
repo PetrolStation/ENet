@@ -44,7 +44,7 @@ namespace PetrolEngine {
         return 0;
     }
 
-    void Client::update(){ LOG_FUNCTION();
+    void Client::updateNetwork(){ LOG_FUNCTION();
         ENetEvent event;
         
         //while(active){

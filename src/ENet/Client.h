@@ -2,6 +2,7 @@
 
 #include <Core/Aliases.h>
 #include <enet/enet.h>
+#include <Core/EventStack.h>
 
 namespace PetrolEngine{
     class Client {
@@ -14,7 +15,7 @@ namespace PetrolEngine{
         virtual void onConnect() {};
         virtual void onDisconnect() {};
         virtual void onRecive(String& msg) = 0;
-        void update();
+        void updateNetwork();
         void send(String& msg);
         void flush();
         
